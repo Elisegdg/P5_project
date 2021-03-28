@@ -53,15 +53,6 @@ function draw() {
         }
     }
 }
-function keyReleased() {
-    if (value == 0) {
-        value = 255;
-    }
-    else {
-        value = 0;
-    }
-    return false;
-}
 function setup() {
     p6_CreateCanvas();
 }

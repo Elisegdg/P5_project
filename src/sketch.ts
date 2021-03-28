@@ -33,7 +33,7 @@ function draw() {
 
     angleMode(DEGREES)
 
-    // initialisation de la page
+    // Initialisation of the page to start creating the work
 
     translate(width / 2, height / 2)
     background('white');
@@ -41,15 +41,20 @@ function draw() {
     color('black')
 
 
-    let value = 230
-    let radius = 20
+    let value = 300 // Position of the next circle of octagons 
+    let radius = 26 // Radius of the octagons
 
-    for (let nbCercles = 0; nbCercles < 10; nbCercles++) {
+    // Draw multiple circles and change the octagons size for each circle
+
+    for (let nbCercles = 0; nbCercles < 6; nbCercles++) {
+
+        // Draw a circle composed of octagons
+
         for (let alpha = 0; alpha <= 360; alpha += 10) {
             push()
             rotate(alpha)
 
-            // dessiner l'octogone 
+            // Draw one octagon
             beginShape()
             for (let i = 0; i < 8; i++) {
                 const angle = i / 8 * 360
@@ -60,8 +65,16 @@ function draw() {
             pop()
         }
 
-        value = value - radius - 8
-        radius = radius - 2
+        if (radius > 0) {
+            value = value - radius * 1.8
+            radius = radius - 4
+
+        } else {
+            value = value - radius * 5
+            radius = radius - 1
+
+        }
+
     }
 
 

@@ -11,9 +11,9 @@ function draw() {
     background('white');
     strokeWeight(1);
     color('black');
-    var value = 230;
-    var radius = 20;
-    for (var nbCercles = 0; nbCercles < 10; nbCercles++) {
+    var value = 300;
+    var radius = 26;
+    for (var nbCercles = 0; nbCercles < 6; nbCercles++) {
         for (var alpha_1 = 0; alpha_1 <= 360; alpha_1 += 10) {
             push();
             rotate(alpha_1);
@@ -25,8 +25,14 @@ function draw() {
             endShape(CLOSE);
             pop();
         }
-        value = value - radius - 8;
-        radius = radius - 2;
+        if (radius > 0) {
+            value = value - radius * 1.8;
+            radius = radius - 4;
+        }
+        else {
+            value = value - radius * 5;
+            radius = radius - 1;
+        }
     }
 }
 function setup() {

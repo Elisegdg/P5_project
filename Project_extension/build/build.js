@@ -1,26 +1,44 @@
 var gui = new dat.GUI();
 var params = {
-    Ellipse_Size: 30,
-    Download_Image: function () { return save(); },
+    Number_circles: 6,
+    Radius_octagons: 26,
 };
-gui.add(params, "Ellipse_Size", 0, 100, 1);
-gui.add(params, "Download_Image");
+gui.add(params, "Number_circles", 1, 7, 1);
+gui.add(params, "Radius_octagons", 1, 50, 1);
+var value = 255;
 function draw() {
     angleMode(DEGREES);
     translate(width / 2, height / 2);
     background('white');
     strokeWeight(1);
     color('black');
-    var value = 300;
-    var radius = 26;
-    for (var nbCercles = 0; nbCercles < 6; nbCercles++) {
+    if (keyIsPressed == true) {
+        var value = 300 + frameCount / 3;
+    }
+    else {
+        var value = 300;
+    }
+    var radius = params.Radius_octagons;
+    for (var nbCercles = 0; nbCercles < params.Number_circles; nbCercles++) {
         for (var alpha_1 = 0; alpha_1 <= 360; alpha_1 += 10) {
             push();
-            rotate(alpha_1);
+            if (keyIsPressed == true) {
+                rotate(alpha_1 + frameCount / 3);
+            }
+            else {
+                rotate(alpha_1 + frameCount / 3);
+            }
             beginShape();
+            fill(value);
             for (var i = 0; i < 8; i++) {
-                var angle = i / 8 * 360;
-                vertex(cos(angle) * radius + value, sin(angle) * radius);
+                if (keyIsPressed == true) {
+                    var angle = i / 8 * 360 + frameCount / 2;
+                    vertex(cos(angle) * radius + value, sin(angle) * radius);
+                }
+                else {
+                    var angle = i / 8 * 360;
+                    vertex(cos(angle) * radius + value, sin(angle) * radius);
+                }
             }
             endShape(CLOSE);
             pop();
@@ -34,6 +52,15 @@ function draw() {
             radius = radius - 1;
         }
     }
+}
+function keyReleased() {
+    if (value == 0) {
+        value = 255;
+    }
+    else {
+        value = 0;
+    }
+    return false;
 }
 function setup() {
     p6_CreateCanvas();
